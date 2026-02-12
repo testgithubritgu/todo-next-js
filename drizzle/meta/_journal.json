@@ -15,6 +15,20 @@
       "when": 1770884953662,
       "tag": "0001_gray_celestials",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1770888487251,
+      "tag": "0002_misty_ulik",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1770888662313,
+      "tag": "0003_white_kinsey_walden",
+      "breakpoints": true
     }
   ]
 }
