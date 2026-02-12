@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { useState } from "react";
 
 export const useDeleteTask = () => {
@@ -5,7 +6,7 @@ export const useDeleteTask = () => {
   const [error, setError] = useState<string | null>(null);
 
   const deleteTask = async (id: string) => {
-    try {
+    
       setLoading(true);
       setError(null);
 
@@ -17,13 +18,13 @@ export const useDeleteTask = () => {
 
       if (!res.ok) throw new Error(data.error);
 
-      return { success: true };
-    } catch (err: any) {
-      setError(err.message || "Failed to delete task");
-      return { success: false };
-    } finally {
+      
+   
+     
+    
       setLoading(false);
-    }
+      revalidatePath("/tasks")
+    
   };
 
   return {

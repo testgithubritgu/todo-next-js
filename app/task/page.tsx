@@ -1,6 +1,10 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
+import { useDeleteTask } from '@/hooks/useDeleteTask'
 import { useFetchTask } from '@/hooks/useFetchTasks'
+import { Delete, Edit } from 'lucide-react'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 interface Task {
@@ -19,6 +23,7 @@ interface TodoApiResponse {
 const TaskPage = () => {
   const [data, setData] = useState<TodoApiResponse | null>(null)
   const { fetchTask, loading, error } = useFetchTask()
+  const { deleteTask, loading: delLoading, error: delError } = useDeleteTask()
 
   useEffect(() => {
     const getTasks = async () => {
@@ -37,6 +42,11 @@ const TaskPage = () => {
   return (
     <div style={{ maxWidth: '600px', margin: '2rem auto', padding: '0 1rem' }}>
       <h1 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>My Tasks</h1>
+      <Link href={"/task/new"} >
+        <Button className='my-10'>
+          Add Task
+        </Button></Link>
+
       {tasks.length === 0 ? (
         <p>No tasks found.</p>
       ) : (
@@ -52,6 +62,12 @@ const TaskPage = () => {
                 boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
               }}
             >
+              <Edit />
+              <Delete onClick={async() => {
+               await deleteTask(task.id)
+               
+
+              }} />
               <h2 style={{ fontSize: '1.15rem', margin: '0 0 0.5rem' }} className='text-black'>{task.title}</h2>
               <p style={{ margin: 0, color: '#555' }}>{task.description}</p>
             </div>
