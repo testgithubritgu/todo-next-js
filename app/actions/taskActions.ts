@@ -36,6 +36,8 @@ export async function createTask(
     return { success: true, error: null };
   } catch (error) {
     console.error("CREATE TASK ERROR 👉", error);
-    return { success: false, error: "Something went wrong" };
+    const message =
+      error instanceof Error ? error.message : "Something went wrong";
+    return { success: false, error: message };
   }
 }
