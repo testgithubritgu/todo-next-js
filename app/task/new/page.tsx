@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema, TaskFormValues } from "@/lib/validators/taskSchema";
 import { createTask, ActionState } from "@/app/actions/taskActions";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,7 @@ const initialState: ActionState = {
 };
 
 const TaskForm = () => {
+  const queryClient = useQueryClient();
   const [state, formAction, isPending] = useActionState(
     createTask,
     initialState
@@ -35,8 +37,9 @@ const TaskForm = () => {
   useEffect(() => {
     if (state.success) {
       reset();
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
     }
-  }, [state.success, reset]);
+  }, [state.success, reset, queryClient]);
 
   return (
     <div className="min-h-screen bg-background">
