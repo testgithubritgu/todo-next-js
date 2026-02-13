@@ -1,5 +1,3 @@
-
-import { revalidateMyPath } from "@/app/actions/revalidate-path";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -9,7 +7,7 @@ export const useDeleteTask = () => {
   const router = useRouter();
 
   const deleteTask = async (id: string) => {
-    
+    try {
       setLoading(true);
       setError(null);
 
@@ -19,15 +17,16 @@ export const useDeleteTask = () => {
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(data.error || "Failed to delete task");
 
-      
-   
-     
-    
+      router.refresh();
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Failed to delete task";
+      setError(message);
+    } finally {
       setLoading(false);
-      window.location.reload()
-    
+    }
   };
 
   return {
