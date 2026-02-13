@@ -16,8 +16,10 @@ export const useFetchTask = () => {
       if (!res.ok) throw new Error(data.error);
 
       return { success: true, data };
-    } catch (err: any) {
-      setError(err.message || "Failed to fetch task");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Failed to delete task";
+      setError(message || "Failed to fetch task");
       return { success: false };
     } finally {
       setLoading(false);
