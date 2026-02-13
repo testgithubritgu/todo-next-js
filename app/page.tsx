@@ -11,20 +11,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-2">
-            <ListTodo className="size-6 text-primary" />
-            <span className="text-xl font-bold tracking-tight">
-              TaskFlow
-            </span>
-          </div>
 
-          <Button asChild size="sm">
-            <Link href="/task">Get Started</Link>
-          </Button>
-        </div>
-      </nav>
 
       {/* Hero */}
       <section className="relative mx-auto max-w-5xl px-6 py-24 text-center md:py-32">
