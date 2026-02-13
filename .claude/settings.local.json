@@ -4,7 +4,8 @@
       "Bash(npx drizzle-kit:*)",
       "Bash(node -e:*)",
       "Bash(npx shadcn@latest add:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npx next build:*)"
     ]
   }
 }

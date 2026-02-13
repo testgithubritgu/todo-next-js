@@ -4,8 +4,9 @@ import { taskSchema } from "@/lib/validators/taskSchema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export async function PUT(req:Request,{params}:{params:{id:string}}){
+export async function PUT(req:Request,{params}:{params:Promise<{id:string}>}){
     try {
+        const {id} = await params
         const body = await req.json()
         const parsed = taskSchema.safeParse(body)
          if (!parsed.success) {
@@ -17,7 +18,7 @@ export async function PUT(req:Request,{params}:{params:{id:string}}){
          await db.update(todo).set({
             title:parsed.data.title,
             description:parsed.data.description ?? null
-         }).where(eq(todo.id,params.id))
+         }).where(eq(todo.id,id))
 
          return NextResponse.json({success:true})
 
@@ -29,8 +30,8 @@ export async function PUT(req:Request,{params}:{params:{id:string}}){
     }
 }
 
-export async function DELETE(req:Request,{params}:{params:{id:string}}){
-  const {id} =  params
+export async function DELETE(req:Request,{params}:{params:Promise<{id:string}>}){
+  const {id} =  await params
   
     await db.delete(todo).where(eq(todo.id, id));
     return NextResponse.json({success:true})
