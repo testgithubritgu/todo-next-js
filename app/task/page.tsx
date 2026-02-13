@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import type { Task } from '@/lib/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { ClipboardList, Edit, Loader2, Plus, RefreshCcw, Trash2 } from 'lucide-react'
+import { ArrowLeft, ClipboardList, Edit, Loader2, Plus, RefreshCcw, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 
 function TaskSkeleton() {
@@ -162,6 +162,13 @@ export default function TaskPage() {
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <div>
+            <Link
+              href="/"
+              className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <ArrowLeft className="size-4" />
+              Back to Home
+            </Link>
             <h1 className="text-3xl font-bold tracking-tight">My Tasks</h1>
             <p className="mt-1 text-sm text-muted-foreground flex justify-center items-center gap-4">
               {isLoading
