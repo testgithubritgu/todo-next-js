@@ -5,7 +5,7 @@ import { useDeleteTask } from '@/hooks/useDeleteTask'
 import { useFetchTask } from '@/hooks/useFetchTasks'
 import { Delete, Edit } from 'lucide-react'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Task {
   id: string

@@ -1,9 +1,12 @@
-import { revalidatePath } from "next/cache";
+
+import { revalidateMyPath } from "@/app/actions/revalidate-path";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const useDeleteTask = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const deleteTask = async (id: string) => {
     
@@ -23,7 +26,7 @@ export const useDeleteTask = () => {
      
     
       setLoading(false);
-      revalidatePath("/tasks")
+      window.location.reload()
     
   };
 
