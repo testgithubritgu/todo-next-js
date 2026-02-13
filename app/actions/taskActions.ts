@@ -36,6 +36,6 @@ export async function createTask(
 
   revalidatePath("/task");
 
-  // 🔥 IMPORTANT: no return after redirect
+
   redirect("/task");
 }

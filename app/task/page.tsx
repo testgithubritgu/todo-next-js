@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import type { Task } from '@/lib/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { ClipboardList, Edit, Loader2, Plus, Trash2 } from 'lucide-react'
+import { ClipboardList, Edit, Loader2, Plus, RefreshCcw, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 
 function TaskSkeleton() {
@@ -151,9 +151,11 @@ export default function TaskPage() {
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
+     
     },
   })
 
+ 
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-2xl px-4 py-10">
@@ -161,10 +163,14 @@ export default function TaskPage() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">My Tasks</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-sm text-muted-foreground flex justify-center items-center gap-4">
               {isLoading
                 ? 'Loading...'
                 : `${tasks.length} task${tasks.length !== 1 ? 's' : ''}`}
+                <span><RefreshCcw onClick={()=>{
+                  window.location.reload()
+
+                }} className='size-4 cursor-pointer' /></span>
             </p>
           </div>
           <Button asChild>
