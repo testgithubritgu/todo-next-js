@@ -30,7 +30,7 @@ export async function PUT(req:Request,{params}:{params:{id:string}}){
 }
 
 export async function DELETE(req:Request,{params}:{params:{id:string}}){
-  const {id} = await params
+  const {id} =  params
   
     await db.delete(todo).where(eq(todo.id, id));
     return NextResponse.json({success:true})
