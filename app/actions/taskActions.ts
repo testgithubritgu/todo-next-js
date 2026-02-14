@@ -3,6 +3,7 @@
 import { db } from "@/config/db";
 import { todo } from "@/config/schema";
 import { taskSchema } from "@/lib/validators/taskSchema";
+import { auth  } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -19,9 +20,14 @@ export async function createTask(
     title: formData.get("title"),
     description: formData.get("description"),
   };
-
+  const {userId} = await auth()
   const parsed = taskSchema.safeParse(rawData);
-
+  if(!userId){
+    return {
+      success: false,
+      error: "Unauthorized",
+    };
+  }
   if (!parsed.success) {
     return {
       success: false,
@@ -30,6 +36,7 @@ export async function createTask(
   }
 
   await db.insert(todo).values({
+    user_id: userId,
     title: parsed.data.title,
     description: parsed.data.description ?? null,
   });
